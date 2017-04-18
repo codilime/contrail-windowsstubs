@@ -158,6 +158,10 @@ char* strptime(const char* str,const char* format,	struct tm* tm)
 	}
 	return const_cast<char*>(str + input.tellg());
 }
+
+
+__int64  timegm(struct tm *) { return 0; }
+struct tm *  gmtime_r(__int64 const *, struct tm *) { return nullptr; }
 /*
 
 time_t timelocal(struct tm *tm)

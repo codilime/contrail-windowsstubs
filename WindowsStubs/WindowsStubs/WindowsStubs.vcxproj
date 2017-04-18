@@ -22,7 +22,7 @@
     <ProjectGuid>{D9DAB2AE-E2C3-481E-8EED-24F918C782F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>WindowsStubs</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -135,11 +135,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\winutils.h" />
+    <ClInclude Include="cpuinfo.h" />
+    <ClInclude Include="wmi.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\winutils.cpp" />
     <ClCompile Include="AgentConstants.cpp" />
+    <ClCompile Include="cpuinfo.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
+    <ClCompile Include="WMI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

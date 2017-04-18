@@ -55,5 +55,5 @@ int getrlimit(int resource, struct rlimit *rlp);
 
 int setrlimit(int resource, const struct rlimit *rlp);
 
-#define strncasecmp _strnicmp
-#define strcasecmp _stricmp
+#define strncasecmp  _strnicmp
+#define strcasecmp  _stricmp

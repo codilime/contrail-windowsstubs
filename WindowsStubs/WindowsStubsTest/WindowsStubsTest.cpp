@@ -3,6 +3,9 @@
 
 #include "stdafx.h"
 #include "winutils.h"
+#include "wmi.h"
+#include "cpuinfo.h"
+
 #include<time.h>
 
 int main()
@@ -11,6 +14,7 @@ int main()
 
 	clock_getres(CLOCK_MONOTONIC, &ts);
 	clock_gettime(CLOCK_MONOTONIC, &ts);
+	GetprocessPerformance();
     return 0;
 }
 
