@@ -1,0 +1,12 @@
+WindowsStubs/Debug/*
+WindowsStubs/Release/*
+WindowsStubs/x64/Debug/*
+WindowsStubs/x64/Release/*
+WindowsStubs/WindowsStubs/Debug/*
+WindowsStubs/WindowsStubs/Release/*
+WindowsStubs/WindowsStubs/x64/Debug/*
+WindowsStubs/WindowsStubs/x64/Release/*
+WindowsStubs/WindowsStubsTest/Debug/*
+WindowsStubs/WindowsStubsTest/Release/*
+WindowsStubs/WindowsStubsTest/x64/Debug/*
+WindowsStubs/WindowsStubsTest/x64/Release/*

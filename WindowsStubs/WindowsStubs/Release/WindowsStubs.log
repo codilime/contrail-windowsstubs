@@ -1,5 +1,0 @@
-﻿  winutils.c
-  TimeUtils.cpp
-TimeUtils.cpp(91): warning C4244: '=': conversion from 'double' to 'LONGLONG', possible loss of data
-TimeUtils.cpp(92): warning C4244: '=': conversion from 'LONGLONG' to 'long', possible loss of data
-  WindowsStubs.vcxproj -> C:\contrail\windowsclean\windows\windows\WindowsStubs\Release\WindowsStubs.lib

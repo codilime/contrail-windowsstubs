@@ -1,6 +1,0 @@
-﻿  TimeUtils.cpp
-c:\contrail\windowsclean\windows\windows\windowsstubs\windowsstubs\timeutils.cpp(159): warning C4244: 'argument': conversion from 'std::streamoff' to 'int', possible loss of data
-  AgentConstants.cpp
-  winutils.cpp
-  Generating Code...
-  WindowsStubs.vcxproj -> C:\contrail\windowsclean\windows\windows\WindowsStubs\Debug\WindowsStubs.lib
