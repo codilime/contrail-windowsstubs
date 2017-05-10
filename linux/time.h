@@ -10,5 +10,5 @@ struct linux_timeval {
 
 char *strptime(const char *s, const char *format, struct tm *tm);
 time_t timegm(struct tm *tm);
-struct tm *gmtime(const time_t *timep);
+//struct tm *gmtime(const time_t *timep);
 struct tm *gmtime_r(const time_t *timep, struct tm *result);

@@ -134,14 +134,17 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\cpuinfo.h" />
+    <ClInclude Include="..\..\taskutil.h" />
     <ClInclude Include="..\..\winutils.h" />
-    <ClInclude Include="cpuinfo.h" />
-    <ClInclude Include="wmi.h" />
+    <ClInclude Include="..\..\wmi.h" />
+    <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\winutils.cpp" />
     <ClCompile Include="AgentConstants.cpp" />
     <ClCompile Include="cpuinfo.cpp" />
+    <ClCompile Include="TaskUtil.cpp" />
     <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WMI.cpp" />
   </ItemGroup>
