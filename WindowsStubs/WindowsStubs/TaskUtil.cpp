@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <tchar.h>
 #include <iostream>
-#include<string>
+#include <string>
 #include <cctype>
 #include <algorithm>
 
