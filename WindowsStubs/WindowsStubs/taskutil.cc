@@ -5,7 +5,22 @@
 #include <string>
 #include <cctype>
 #include <algorithm>
+#include <process.h>
 #include <memory>
+#include <tlhelp32.h>
+#include <psapi.h>
+
+int osspecific_getpid(void) {
+    return _getpid();
+}
+
+FILE *popen(const char *command, const char *type) {
+    return _popen(command, type);
+}
+
+int pclose(FILE *stream) {
+    return _pclose(stream);
+}
 
 struct ProcessInfoDeleter {
     void operator()(PROCESS_INFORMATION* ppi) {
@@ -95,3 +110,83 @@ bool TaskExecuteAndWait(std::string execpath, std::string *pOutput) {
     return retval;
 }
 
+/*
+int system(const char * command)
+{
+if (command == nullptr) return 0;
+bool bRet = WindowsTaskExecute(command, nullptr, true);
+return 0;//fix this //WINDOWS-TEMP
+}
+*/
+
+//see https://msdn.microsoft.com/en-us/library/ms686852(v=VS.85).aspx
+
+int CountProcessThreads(DWORD id) {
+    HANDLE hThreadSnap = INVALID_HANDLE_VALUE;
+    BOOL  retval = true;
+    PROCESSENTRY32 pe32 = { 0 };
+    int count = -1;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+
+    hThreadSnap = CreateToolhelp32Snapshot(TH32CS_SNAPALL, 0);
+
+    // get the first process info.
+
+    retval = Process32First(hThreadSnap, &pe32);
+    do {
+        if (pe32.th32ProcessID == id) {
+            count = pe32.cntThreads; break;
+        }
+    } while (Process32Next(hThreadSnap, &pe32));
+
+    CloseHandle(hThreadSnap);
+    return count;
+}
+
+void printError(TCHAR* msg) {
+    DWORD eNum;
+    TCHAR sysMsg[256];
+    TCHAR* p;
+
+    eNum = GetLastError();
+    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL, eNum,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+        sysMsg, 256, NULL);
+
+    // Trim the end of the line and terminate it with a null
+    p = sysMsg;
+    while ((*p > 31) || (*p == 9))
+        ++p;
+    do { *p-- = 0; } while ((p >= sysMsg) &&
+        ((*p == '.') || (*p < 33)));
+
+    // Display the message
+    _tprintf(TEXT("\n  WARNING: %s failed with error %d (%s)"), msg, eNum, sysMsg);
+}
+
+void sync(void) {
+    _flushall(); //does it call FlushFileBuffers internally for all files?
+}
+
+void GetCurrentProcessMemoryInfo(uint32_t& virt, uint32_t& peakvirt, uint32_t& res) {
+    virt = peakvirt = res = 0;
+    PROCESS_MEMORY_COUNTERS_EX pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {//return in KB, need to verify the mapping 
+                                                                                                 //may need to convert back to non-kb.
+        virt = pmc.PrivateUsage / 1024;
+        peakvirt = pmc.PeakWorkingSetSize / 1024;
+        res = pmc.WorkingSetSize / 1024;
+    }
+}
+
+DWORD GetNumberOfCPUs() {
+    SYSTEM_INFO siSysInfo;
+    GetSystemInfo(&siSysInfo);
+    return siSysInfo.dwNumberOfProcessors;
+}
+
+int getloadavg(double loadavg[], int nelem) {
+    return 0;
+    //FIX IN PROGRESS-sagarc
+}

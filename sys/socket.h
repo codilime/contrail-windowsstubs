@@ -4,14 +4,10 @@ typedef int socklen_t;
 #define MSG_DONTWAIT    0x40 
 #define AF_LOCAL        1       /* POSIX name for AF_UNIX       */
 #define AF_INET         2       /* Internet IP Protocol         */
-
-#ifndef WIN_IOVEC
-#define WIN_IOVEC
 struct iovec {                    /* Scatter/gather array items */
 	void  *iov_base;              /* Starting address */
 	size_t iov_len;               /* Number of bytes to transfer */
 };
-#endif /* WIN_IOVEC */
 
 struct msghdr {
 	void         *msg_name;       /* optional address */
@@ -61,4 +57,4 @@ struct msghdr {
 #define SIOCGIFCOUNT    0x8938          /* get number of devices */
 
 int ioctl(int __fd, unsigned long int __request, ...);
-int close(int fd);
+//int close(int fd);
