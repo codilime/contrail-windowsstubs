@@ -11,13 +11,6 @@
 
 int main()
 {
-    timespec ts;
-
-    //clock_getres(CLOCK_MONOTONIC, &ts);
-    //clock_gettime(CLOCK_MONOTONIC, &ts);
-    //GetprocessPerformance();
-
-//	TaskExecuteAndWait("c:\\python27\\python.exe");
     std::string output;
     TaskExecuteAndWait("where python", &output);
     TaskExecuteAndWait("dir", nullptr);

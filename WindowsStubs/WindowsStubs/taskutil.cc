@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <memory>
 
-
 struct ProcessInfoDeleter {
     void operator()(PROCESS_INFORMATION* ppi) {
         if (ppi) {
@@ -23,10 +22,14 @@ struct ProcessInfoDeleter {
 bool TaskExecuteAndWait(std::string execpath, std::string *pOutput) {
     STARTUPINFO si;
     SECURITY_ATTRIBUTES securityAttr;
-    HANDLE inputPipe= INVALID_HANDLE_VALUE, outputPipe= INVALID_HANDLE_VALUE;
+    HANDLE inputPipe = INVALID_HANDLE_VALUE, outputPipe = INVALID_HANDLE_VALUE;
     bool retval = true;
-    std::unique_ptr<PROCESS_INFORMATION,ProcessInfoDeleter> upi(new PROCESS_INFORMATION);
-    PROCESS_INFORMATION *ppi = upi.get();//only for clarity purposes, ownership is not relinquished
+    std::unique_ptr<PROCESS_INFORMATION,ProcessInfoDeleter>
+        upi(new PROCESS_INFORMATION);
+
+    // only for clarity purposes, ownership is not relinquished
+    PROCESS_INFORMATION *ppi = upi.get();
+
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
     ZeroMemory(ppi, sizeof(PROCESS_INFORMATION));
@@ -35,10 +38,13 @@ bool TaskExecuteAndWait(std::string execpath, std::string *pOutput) {
     securityAttr.bInheritHandle = TRUE;
     int len;
     int slength = (int)execpath.length() + 1;
-    //CP_ACP instructs the API to use the currently set default Windows ANSI codepage
+
+    // CP_ACP instructs the API to use the currently set default Windows
+    // ANSI codepage
     len = MultiByteToWideChar(CP_ACP, 0, execpath.c_str(), slength, 0, 0);
+
     auto ubuf = std::unique_ptr<wchar_t[]>{ new wchar_t[len] };
-    wchar_t *pbuf = ubuf.get(); //only for clarity
+    wchar_t *pbuf = ubuf.get(); // only for clarity
     MultiByteToWideChar(CP_ACP, 0, execpath.c_str(), slength, pbuf, len);
     if (pOutput) {
         if (CreatePipe(&inputPipe, &outputPipe, &securityAttr, 0) != 0) {
@@ -46,9 +52,11 @@ bool TaskExecuteAndWait(std::string execpath, std::string *pOutput) {
             si.hStdInput = NULL;
             si.hStdOutput = outputPipe;
             si.hStdError = outputPipe;
+        } else {
+            // Set it to null so that later the pipe related functionality
+            // is skipped. Allow other functionality to execute.
+            pOutput = nullptr;
         }
-        else
-            pOutput = nullptr;// set it to null so that later the pipe related functionality is skipped.Allow other functionality to execute.
     }
 
     if (!CreateProcess(NULL, pbuf, NULL, NULL, TRUE, 0, NULL, NULL, &si, ppi)) {
