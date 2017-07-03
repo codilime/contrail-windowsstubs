@@ -54,8 +54,12 @@ u_int32_t custom_htonl(u_int32_t x)
 	//#endif
 }
 unsigned int  sleep(unsigned int sec) { Sleep(1000 * sec); return 0; }
-//void  bzero(unsigned char *, int) { }
-int  usleep(unsigned int x) { Sleep(x);  return 0; }
+
+int usleep(unsigned int x) {
+    Sleep((x + 999U) / 1000U); // divide by 1000 and round up
+    return 0;
+}
+
 int  getrlimit(int, struct rlimit *) { return 0; }
 int  getrusage(int, struct rusage *) { return 0; }
 int  close(int) { return 0; }
