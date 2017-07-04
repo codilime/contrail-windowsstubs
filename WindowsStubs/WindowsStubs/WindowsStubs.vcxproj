@@ -22,7 +22,7 @@
     <ProjectGuid>{D9DAB2AE-E2C3-481E-8EED-24F918C782F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>WindowsStubs</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -134,16 +134,18 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\cpuinfo.h" />
+    <ClInclude Include="..\..\taskutil.h" />
     <ClInclude Include="..\..\winutils.h" />
-    <ClInclude Include="cpuinfo.h" />
-    <ClInclude Include="wmi.h" />
+    <ClInclude Include="..\..\wmi.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\winutils.cpp" />
-    <ClCompile Include="AgentConstants.cpp" />
-    <ClCompile Include="cpuinfo.cpp" />
-    <ClCompile Include="TimeUtils.cpp" />
-    <ClCompile Include="WMI.cpp" />
+    <ClCompile Include="..\..\winutils.cc" />
+    <ClCompile Include="agentconstants.cc" />
+    <ClCompile Include="cpuinfo.cc" />
+    <ClCompile Include="taskutil.cc" />
+    <ClCompile Include="timeutils.cc" />
+    <ClCompile Include="wmi.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
