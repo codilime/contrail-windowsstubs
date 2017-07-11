@@ -30,7 +30,9 @@ struct linux_in6_addr {
 		union {
 			u_char  Byte[16];
 			u_short Word[8];
+			__u32   s6_addr32[4];
 		} u;
+#define s6_addr32		u.s6_addr32
 };
 //#endif /* __UAPI_DEF_IN6_ADDR */
 
