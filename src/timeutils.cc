@@ -153,11 +153,11 @@ char* strptime(const char* str,const char* format,	struct tm* tm) {
 
 
 __int64  timegm(struct tm *) {
-    assert(0);
+    //windows-temp assert(0);
     return 0;
 }
 struct tm *  gmtime_r(__int64 const *, struct tm *) {
-    assert(0);
+    //windows-temp assert(0);
     return nullptr; 
 }
 

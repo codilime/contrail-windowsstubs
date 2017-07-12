@@ -198,7 +198,7 @@ DWORD GetNumberOfCPUs() {
 }
 
 int getloadavg(double loadavg[], int nelem) {
-    assert(0);
+    //windows-temp assert(0);
     return 0;
    
 }

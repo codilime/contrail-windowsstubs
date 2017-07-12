@@ -56,35 +56,35 @@ int usleep(unsigned int x) {
 }
 
 int  getrlimit(int, struct rlimit *) {
-    assert(0);
+   //windows-temp    assert(0);
     return 0; 
 }
 int  getrusage(int, struct rusage *) {
-    assert(0);
+    //windows-temp    assert(0);
     return 0; 
 }
 int  close(int) {
-    assert(0);
+    //windows-temp    assert(0);
     return 0; 
 }
 int  setrlimit(int, struct rlimit const *) {
-    assert(0);
+    //windows-temp    assert(0);
     return 0; 
 }
 void  WindowsCloseTaskFiles(void) {
-    assert(0);
+    //windows-temp    assert(0);
 }
 char * gettempdirectory(void) { 
     DWORD WINAPI GetTempPath(
         _In_  DWORD  nBufferLength,
         _Out_ LPTSTR lpBuffer
     );
-    assert(0);
+    //windows-temp    assert(0);
     return 0; 
 }
 
 int ioctl(int fd, unsigned long request, ...) {
-    assert(0);
+    //windows-temp    assert(0);
     return 0;
 }
 
