@@ -23,9 +23,9 @@ typedef u_int16_t n_short;
 typedef u_int32_t n_long;             
 typedef u_int32_t n_time;
 
-typedef __declspec(align(4)) uint16_t __be16;
-typedef __declspec(align(4)) uint16_t __sum16;
-typedef __declspec(align(4)) uint32_t  __be32;
+typedef uint16_t __be16;
+typedef uint16_t __sum16;
+typedef uint32_t __be32;
 
 
 typedef unsigned char	u_char; 
