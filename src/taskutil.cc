@@ -149,27 +149,7 @@ int CountProcessThreads(DWORD id) {
     return count;
 }
 
-void printError(TCHAR* msg) {
-    DWORD eNum;
-    TCHAR sysMsg[256];
-    TCHAR* p;
 
-    eNum = GetLastError();
-    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-        NULL, eNum,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-        sysMsg, 256, NULL);
-
-    // Trim the end of the line and terminate it with a null
-    p = sysMsg;
-    while ((*p > 31) || (*p == 9))
-        ++p;
-    do { *p-- = 0; } while ((p >= sysMsg) &&
-        ((*p == '.') || (*p < 33)));
-
-    // Display the message
-    _tprintf(TEXT("\n  WARNING: %s failed with error %d (%s)"), msg, eNum, sysMsg);
-}
 
 
 void sync(void) {
@@ -177,18 +157,18 @@ void sync(void) {
 }
 
 
-void GetCurrentProcessMemoryInfo(uint32_t& virt, uint32_t& peakvirt, uint32_t& res) {
+BOOL GetCurrentProcessMemoryInfo(uint32_t& virt, uint32_t& peakvirt, uint32_t& res) {
     virt = peakvirt = res = 0;
     PROCESS_MEMORY_COUNTERS_EX pmc;
-    if (GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc)))
-    {//return in KB, need to verify the mapping 
+    BOOL bRet = 0;
+    if (bRet = GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
+        //return in KB, need to verify the mapping 
         //may need to convert back to non-kb.
         virt = pmc.PrivateUsage/1024;
         peakvirt = pmc.PeakWorkingSetSize/1024;
         res = pmc.WorkingSetSize/1024;
-       
     }
-
+    return bRet;
 }
 
 DWORD GetNumberOfCPUs() {

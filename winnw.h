@@ -1,7 +1,7 @@
 #pragma once
 #
 #define ETHER_ADDR_LEN 6
-#define	ETHERTYPE_IP	0x0800		
+#define	ETHERTYPE_IP 0x0800
 /* IP protocol */
 /*
 2  * Ethernet netdevice using ATM AAL5 as underlying carrier

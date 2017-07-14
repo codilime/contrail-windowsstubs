@@ -4,7 +4,7 @@
 #include "TlHelp32.h"
 #include <cassert>
 
-
+//     https://msdn.microsoft.com/en-us/library/windows/desktop/ms686701(v=vs.85).aspx
 DWORD getppid() {
     HANDLE hSnapshot = INVALID_HANDLE_VALUE;
     PROCESSENTRY32 pe32;
@@ -32,6 +32,7 @@ DWORD getppid() {
     }
     return ppid;
 }
+
 
 
 void bzero(void *to, int count) {
@@ -75,12 +76,8 @@ void  WindowsCloseTaskFiles(void) {
     //windows-temp    assert(0);
 }
 char * gettempdirectory(void) { 
-    DWORD WINAPI GetTempPath(
-        _In_  DWORD  nBufferLength,
-        _Out_ LPTSTR lpBuffer
-    );
-    //windows-temp    assert(0);
-    return 0; 
+      //windows-temp    assert(0);
+    return nullptr; 
 }
 
 int ioctl(int fd, unsigned long request, ...) {
@@ -103,24 +100,23 @@ int find_first_set64(uint64_t value) {
     else return 0;
 }
 
+//modified from https://msdn.microsoft.com/en-us/library/windows/desktop/ms686701(v=vs.85).aspx
+//useful utility to print detailed error message from error code.
+
 std::string GetFormattedWindowsErrorMsg() {
-    DWORD error = GetLastError();
-    LPSTR message = NULL;
-
-    DWORD flags = (FORMAT_MESSAGE_ALLOCATE_BUFFER |
-                   FORMAT_MESSAGE_FROM_SYSTEM |
-                   FORMAT_MESSAGE_IGNORE_INSERTS);
-    DWORD lang_id = MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT);
-    DWORD ret = FormatMessageA(flags, NULL, error, lang_id, (LPSTR)message, 0, NULL);
-
-    std::ostringstream sstr;
-
-    if (ret != 0) {
-        sstr << message << " ";
-    }
-
-    sstr << "[" << error << "]";
-    LocalFree(message);
-
-    return sstr.str();
+    DWORD eNum = 0;
+    const DWORD maxsize = 256;
+    char sysMsg[maxsize];
+    std::string errormsg;
+    eNum = GetLastError();
+    if(eNum !=0) {
+        size_t size = FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL, eNum,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+            sysMsg, maxsize, NULL);
+        if (size != 0) {
+            errormsg = sysMsg;
+        }
+     }
+    return errormsg;
 }
