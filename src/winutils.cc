@@ -3,6 +3,8 @@
 #include "winutils.h"
 #include "TlHelp32.h"
 #include <cassert>
+#include <DbgHelp.h>
+#include <memory>
 
 //     https://msdn.microsoft.com/en-us/library/windows/desktop/ms686701(v=vs.85).aspx
 DWORD getppid() {
@@ -120,3 +122,41 @@ std::string GetFormattedWindowsErrorMsg() {
      }
     return errormsg;
 }
+
+//see https://msdn.microsoft.com/en-us/library/windows/desktop/ms680344(v=vs.85).aspx
+//https://msdn.microsoft.com/en-us/library/windows/desktop/ms680578(v=vs.85).aspx
+bool GetCallStack(std::string & callstack) {
+    HANDLE hProcess = GetCurrentProcess();//-1 return value is OK and valid, hence no error checking
+    const int maxframes = 128;
+    void * frames[maxframes];
+    bool bRetVal = true;
+    USHORT nFrames = 0;
+    DWORD64  dwDisplacement = 0;
+    PSYMBOL_INFO pSymbol = nullptr;
+    
+    if (SymInitialize(hProcess, NULL, TRUE)) {
+        nFrames = CaptureStackBackTrace(0, maxframes, frames, NULL);
+        if (nFrames > 0) {
+            std::unique_ptr<char[]> pbuffer(new char[sizeof(SYMBOL_INFO) + MAX_SYM_NAME * sizeof(TCHAR)]);
+            pSymbol = reinterpret_cast<SYMBOL_INFO*>(pbuffer.get()); //unique_ptr does not give up ownership
+            pSymbol->MaxNameLen = MAX_SYM_NAME;
+            pSymbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+
+            for (USHORT i = 0; i < nFrames; i++) {
+                if (SymFromAddr(hProcess, (DWORD64)frames[i], 0, pSymbol) == TRUE) {
+                    std::stringstream ss;
+                    ss << i << "::" << pSymbol->Name << "::" << std::hex << pSymbol->Address << std::endl;
+                    callstack += ss.str();
+                }
+            }
+        }
+
+    }
+    else {
+        bRetVal = false;
+        callstack = GetFormattedWindowsErrorMsg();//could not get callstack
+    }
+
+    return bRetVal;
+}
+
