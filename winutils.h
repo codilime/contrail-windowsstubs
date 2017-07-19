@@ -51,3 +51,4 @@ int setrlimit(int resource, const struct rlimit *rlp);
 std::string GetFormattedWindowsErrorMsg(); // TODO: JW-522 Refactor
 
 void sync(void);
+bool GetCallStack(std::string & callstack);
