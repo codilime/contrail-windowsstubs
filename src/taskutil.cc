@@ -171,12 +171,6 @@ BOOL GetCurrentProcessMemoryInfo(uint32_t& virt, uint32_t& peakvirt, uint32_t& r
     return bRet;
 }
 
-DWORD GetNumberOfCPUs() {
-    SYSTEM_INFO siSysInfo;
-    GetSystemInfo(&siSysInfo);
-    return siSysInfo.dwNumberOfProcessors;
-}
-
 int getloadavg(double loadavg[], int nelem) {
     //windows-temp assert(0);
     return 0;

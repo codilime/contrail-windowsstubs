@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <sstream>
 #include <sys/time.h>
+#include <sys/times.h>
 #include <cassert>
 
 #define BUF_SIZE 128
@@ -179,5 +180,15 @@ int gettimeofday(struct timeval *ptv, struct timezone *) {
         }
     }
     return retval;
+}
+
+clock_t times(struct tms *buf) {
+
+    if (buf != nullptr) {
+        buf->tms_utime = clock();
+        buf->tms_stime = buf->tms_cutime = buf->tms_cstime = 0;
+    }
+
+    return buf->tms_stime;
 }
 

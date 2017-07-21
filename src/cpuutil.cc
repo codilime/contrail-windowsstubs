@@ -6,7 +6,8 @@ DWORD GetWindowsOSProcessorCount()
 {
 
 	SYSTEM_INFO siSysInfo;
-	::GetSystemInfo(&siSysInfo);
+    siSysInfo.dwNumberOfProcessors = 1;//just in case function does not return correctly.
+	::GetSystemInfo(&siSysInfo); 
 
 	/*
 	cout << "  Hardware information: " <<endl;
