@@ -1,6 +1,6 @@
 #pragma once
-#define _WINSOCKAPI_    // stops windows.h including winsock.h
-#include<windows.h>
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 #include <stdlib.h>
 
 #include <string> // TODO: JW-522 Refactor
