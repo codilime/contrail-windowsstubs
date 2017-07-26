@@ -62,7 +62,6 @@ int usleep(unsigned int x) {
 
 int  getrlimit(int, struct rlimit *) { return 0; }
 int  getrusage(int, struct rusage *) { return 0; }
-int  close(int) { return 0; }
 int  setrlimit(int, struct rlimit const *) { return 0; }
 void  WindowsCloseTaskFiles(void) {}
 char * gettempdirectory(void) 
