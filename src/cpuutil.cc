@@ -5,22 +5,9 @@ using namespace std;
 DWORD GetWindowsOSProcessorCount()
 {
 
-	SYSTEM_INFO siSysInfo;
-    siSysInfo.dwNumberOfProcessors = 1;//just in case function does not return correctly.
-	::GetSystemInfo(&siSysInfo); 
-
-	/*
-	cout << "  Hardware information: " <<endl;
-	cout << "  OEM ID: "<< siSysInfo.dwOemId<<endl;
-	cout << "  Number of processors: "<<siSysInfo.dwNumberOfProcessors <<endl;
-	cout << "  Page size: "<< siSysInfo.dwPageSize<<endl;
-	cout << "  Processor type:" << siSysInfo.dwProcessorType <<endl;
-	cout << "  Minimum application address: "<< siSysInfo.lpMinimumApplicationAddress<<endl;
-	cout << "  Maximum application address: " <<siSysInfo.lpMaximumApplicationAddress <<endl;
-	cout << "  Active processor mask: " <<	siSysInfo.dwActiveProcessorMask <<endl;
-	*/
-
-	return siSysInfo.dwNumberOfProcessors;
+    SYSTEM_INFO siSysInfo;
+    ::GetSystemInfo(&siSysInfo); 
+    return (siSysInfo.dwNumberOfProcessors==0)?1: siSysInfo.dwNumberOfProcessors;
 }
 
 
