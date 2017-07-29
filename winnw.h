@@ -15,7 +15,7 @@
 #define ETHERTYPE_IPV6  0x86dd
 
 struct if_nameindex;
-unsigned int  osspecific_if_nametoindex(char const * name);
-void  osspecific_if_freenameindex(struct if_nameindex *nameindex);
-struct if_nameindex *  osspecific_if_nameindex(void);
-char *osspecific_if_indextoname(unsigned int ifindex, char *ifname);
+unsigned int  windows_if_nametoindex(char const * name);
+void  windows_if_freenameindex(struct if_nameindex *nameindex);
+struct if_nameindex *  windows_if_nameindex(void);
+char *windows_if_indextoname(unsigned int ifindex, char *ifname);

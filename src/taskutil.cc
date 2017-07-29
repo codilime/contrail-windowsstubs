@@ -12,7 +12,7 @@
 #include <cassert>
 
 
-int osspecific_getpid(void) {
+int windows_getpid(void) {
     return _getpid();
 }
 
@@ -172,7 +172,7 @@ BOOL GetCurrentProcessMemoryInfo(uint32_t& virt, uint32_t& peakvirt, uint32_t& r
 }
 
 int getloadavg(double loadavg[], int nelem) {
-    //windows-temp assert(0);
+    
     return 0;
    
 }

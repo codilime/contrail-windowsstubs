@@ -141,14 +141,13 @@ bool GetCallStack(std::string & callstack) {
             pSymbol = reinterpret_cast<SYMBOL_INFO*>(pbuffer.get()); //unique_ptr does not give up ownership
             pSymbol->MaxNameLen = MAX_SYM_NAME;
             pSymbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-
+            std::stringstream ss;
             for (USHORT i = 0; i < nFrames; i++) {
                 if (SymFromAddr(hProcess, (DWORD64)frames[i], 0, pSymbol) == TRUE) {
-                    std::stringstream ss;
                     ss << i << "::" << pSymbol->Name << "::" << std::hex << pSymbol->Address << std::endl;
-                    callstack += ss.str();
                 }
             }
+            callstack += ss.str();
         }
 
     }
@@ -165,9 +164,7 @@ bool GetCallStack(std::string & callstack) {
 //other option is to USE wmi
 std::string GetWindowsVersionString()
 {
-
     OSVERSIONINFOEX infoex;
- 
 
     ZeroMemory(&infoex, sizeof(OSVERSIONINFOEX));
     infoex.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
@@ -175,11 +172,11 @@ std::string GetWindowsVersionString()
     GetVersionEx((OSVERSIONINFO*)&infoex);
 
     std::stringstream strm;
-    strm << "Major:" << infoex.dwMajorVersion << ";";
-    strm << "Minor" << infoex.dwMinorVersion << ";";
-    strm << "Build:" << infoex.dwBuildNumber << ";";
-    strm << "Platform:" << infoex.dwPlatformId << ";";
-    strm << "Pack:" << "(" << infoex.wServicePackMajor << "," << infoex.wServicePackMinor << ")";
+    strm << "Major:" << infoex.dwMajorVersion << std::endl;
+    strm << "Minor" << infoex.dwMinorVersion << std::endl;
+    strm << "Build:" << infoex.dwBuildNumber << std::endl;
+    strm << "Platform:" << infoex.dwPlatformId << std::endl;
+    strm << "Pack:" << "(" << infoex.wServicePackMajor << "," << infoex.wServicePackMinor << ")"<<std::endl;;
     
     return strm.str();
 }

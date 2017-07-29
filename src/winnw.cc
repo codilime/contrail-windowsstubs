@@ -17,17 +17,17 @@ static inline int xdigit(char c) {
 
 
 
-unsigned int  osspecific_if_nametoindex(char const * name) {
+unsigned int  windows_if_nametoindex(char const * name) {
     return ::if_nametoindex(name);
 }
-void  osspecific_if_freenameindex(struct if_nameindex *nameindex) {
+void  windows_if_freenameindex(struct if_nameindex *nameindex) {
     ::free(nameindex);
 }
-struct if_nameindex *  osspecific_if_nameindex(void) {
+struct if_nameindex *  windows_if_nameindex(void) {
 //windows-temp assert(0);
     return 0;
 }
-char *osspecific_if_indextoname(unsigned int ifindex, char *ifname) {
+char *windows_if_indextoname(unsigned int ifindex, char *ifname) {
     return ::if_indextoname(ifindex, ifname);
 }
 
