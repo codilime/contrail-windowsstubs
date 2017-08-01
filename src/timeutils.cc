@@ -1,7 +1,6 @@
 #include "winutils.h"
 #include <winsock2.h> //for timeval
 #include <ctime>
-
 #include <iomanip>
 #include <sstream>
 #include <sys/time.h>
@@ -43,11 +42,11 @@ int clock_gettime_monotonic(struct timespec *ts) {
     if (ts == nullptr)
         return -1;
 
-    LARGE_INTEGER           t;
-//	FILETIME            f;
-    double                  nanoseconds;
-    static LARGE_INTEGER    starttime;
-    static double           TicksPerNanosecond;
+    LARGE_INTEGER t;
+    // FILETIME f;
+    double nanoseconds;
+    static LARGE_INTEGER starttime;
+    static double TicksPerNanosecond;
 
     if (!bInitDone) {
         QueryPerformanceCounter(&starttime);
@@ -56,7 +55,6 @@ int clock_gettime_monotonic(struct timespec *ts) {
         QueryPerformanceFrequency(&performanceFrequency);
         bInitDone = true;
         TicksPerNanosecond = (double)performanceFrequency.QuadPart / 1000000000.;
-
     }
 
     QueryPerformanceCounter(&t);
@@ -91,8 +89,6 @@ int clock_gettime_realtime(struct timespec *ts) {
         retval = 0;
     }
     return retval;
-
-
 }
 
 int clock_gettime(clockid_t clk_id, struct timespec *ts) {
@@ -101,7 +97,6 @@ int clock_gettime(clockid_t clk_id, struct timespec *ts) {
     else if (clk_id == CLOCK_REALTIME)
         return clock_gettime_realtime(ts);
     return -1;
-
 }
 
 LARGE_INTEGER getFILETIMEoffset() {
@@ -123,7 +118,6 @@ LARGE_INTEGER getFILETIMEoffset() {
     return (t);
 }
 
-
 char *ctime_r(const time_t *timep, char buf[]) {
     if (timep == nullptr || buf == nullptr)
         return nullptr;
@@ -138,8 +132,6 @@ char *ctime_r(const time_t *timep, char buf[]) {
         return nullptr;
 }
 
-
-
 char* strptime(const char* str,const char* format, struct tm* tm) {
     std::istringstream input(str);
     input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
@@ -151,11 +143,11 @@ char* strptime(const char* str,const char* format, struct tm* tm) {
     return const_cast<char*>(str + input.tellg());
 }
 
-
 __int64  timegm(struct tm *) {
     //windows-temp assert(0);
     return 0;
 }
+
 struct tm *  gmtime_r(__int64 const *, struct tm *) {
     //windows-temp assert(0);
     return nullptr; 
@@ -183,7 +175,6 @@ int gettimeofday(struct timeval *ptv, struct timezone *) {
 }
 
 clock_t times(struct tms *buf) {
-
     if (buf != nullptr) {
         buf->tms_utime = clock();
         buf->tms_stime = buf->tms_cutime = buf->tms_cstime = 0;
@@ -191,4 +182,3 @@ clock_t times(struct tms *buf) {
 
     return buf->tms_stime;
 }
-
