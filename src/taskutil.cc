@@ -11,11 +11,9 @@
 #include <psapi.h>
 #include <cassert>
 
-
 int windows_getpid(void) {
     return _getpid();
 }
-
 
 FILE *popen(const char *command, const char *type) {
     return _popen(command, type);
@@ -25,14 +23,15 @@ int pclose(FILE *stream) {
     return _pclose(stream);
 }
 
-
 struct ProcessInfoDeleter {
     void operator()(PROCESS_INFORMATION* ppi) {
         if (ppi) {
-            if(ppi->hProcess)
-            CloseHandle(ppi->hProcess);
-            if(ppi->hThread)
-            CloseHandle(ppi->hThread);
+            if (ppi->hProcess) {
+                CloseHandle(ppi->hProcess);
+            }
+            if (ppi->hThread) {
+                CloseHandle(ppi->hThread);
+            }
             delete ppi;
         }
     }
@@ -114,17 +113,6 @@ bool WindowsTaskExecute(std::string execpath, std::string *pOutput, bool bWait) 
     return retval;
 }
 
-/*
-int system(const char * command) {
-    if (command == nullptr)
-        return 0;
-    bool bRet = WindowsTaskExecute(command, nullptr, true);
-    return 0;//fix this //WINDOWS-TEMP
-}
-
-*/
-
-
 //see https://msdn.microsoft.com/en-us/library/ms686852(v=VS.85).aspx
 
 int CountProcessThreads(DWORD id) {
@@ -136,34 +124,30 @@ int CountProcessThreads(DWORD id) {
 
     hThreadSnap = CreateToolhelp32Snapshot(TH32CS_SNAPALL, 0);
 
-    // get the first process info.
-  
-    retval = Process32First(hThreadSnap, &pe32);
-    do {
-        if (pe32.th32ProcessID == id) {
-            count = pe32.cntThreads; break;
-        }
-    } while (Process32Next(hThreadSnap, &pe32));
+    if (hThreadSnap != INVALID_HANDLE_VALUE) {
+        retval = Process32First(hThreadSnap, &pe32);
+        do {
+            if (pe32.th32ProcessID == id) {
+                count = pe32.cntThreads; break;
+            }
+        } while (Process32Next(hThreadSnap, &pe32));
 
-    CloseHandle(hThreadSnap);
+        CloseHandle(hThreadSnap);
+    }
     return count;
 }
 
-
-
-
 void sync(void) {
-    _flushall(); //does it call FlushFileBuffers internally for all files?
+    _flushall(); // does it call FlushFileBuffers internally for all files?
 }
-
 
 BOOL GetCurrentProcessMemoryInfo(uint32_t& virt, uint32_t& peakvirt, uint32_t& res) {
     virt = peakvirt = res = 0;
     PROCESS_MEMORY_COUNTERS_EX pmc;
     BOOL bRet = 0;
     if (bRet = GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
-        //return in KB, need to verify the mapping 
-        //may need to convert back to non-kb.
+        // return in KB, need to verify the mapping 
+        // may need to convert back to non-kb.
         virt = pmc.PrivateUsage/1024;
         peakvirt = pmc.PeakWorkingSetSize/1024;
         res = pmc.WorkingSetSize/1024;
@@ -177,4 +161,4 @@ int getloadavg(double loadavg[], int nelem) {
    
 }
 
-//https://msdn.microsoft.com/en-us/library/windows/desktop/ms682499(v=vs.85).aspx
+// https://msdn.microsoft.com/en-us/library/windows/desktop/ms682499(v=vs.85).aspx

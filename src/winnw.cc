@@ -15,24 +15,22 @@ static inline int xdigit(char c) {
     return -1;
 }
 
-
-
-unsigned int  windows_if_nametoindex(char const * name) {
+unsigned int  windows_if_nametoindex(char const* name) {
     return ::if_nametoindex(name);
 }
-void  windows_if_freenameindex(struct if_nameindex *nameindex) {
+void windows_if_freenameindex(struct if_nameindex* nameindex) {
     ::free(nameindex);
 }
-struct if_nameindex *  windows_if_nameindex(void) {
-//windows-temp assert(0);
+struct if_nameindex* windows_if_nameindex(void) {
+    // windows-temp assert(0);
     return 0;
 }
-char *windows_if_indextoname(unsigned int ifindex, char *ifname) {
+
+char* windows_if_indextoname(unsigned int ifindex, char* ifname) {
     return ::if_indextoname(ifindex, ifname);
 }
 
-struct ether_addr *
-    ether_aton_r(const char *asc, struct ether_addr * addr) {
+struct ether_addr* ether_aton_r(const char *asc, struct ether_addr * addr) {
     int i, val0, val1;
     for (i = 0; i < ETHER_ADDR_LEN; ++i) {
         val0 = xdigit(*asc);
@@ -58,13 +56,12 @@ struct ether_addr *
     return addr;
 }
 
-struct ether_addr *
-    ether_aton(const char *asc) {
+struct ether_addr* ether_aton(const char* asc) {
     static struct ether_addr addr;
     return ether_aton_r(asc, &addr);
 }
 
 u_int32_t custom_htonl(u_int32_t x) {
-    u_char *s = (u_char *)&x;
+    u_char* s = (u_char*)&x;
     return (u_int32_t)(s[0] << 24 | s[1] << 16 | s[2] << 8 | s[3]);
 }

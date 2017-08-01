@@ -1,4 +1,6 @@
 #pragma once
+
+#include <ctime>
 #include <sys/time.h>
 
 struct tms {
@@ -8,4 +10,5 @@ struct tms {
     clock_t tms_cstime; /* system time of children */
 };
 
+// Always returns 0.
 clock_t times(struct tms *buf); 
