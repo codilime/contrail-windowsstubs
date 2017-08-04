@@ -1,6 +1,6 @@
 
 #pragma once
-#include <linux/time.h>
+#include <posix_time.h>
 
 #define RUSAGE_SELF     0
 #define RUSAGE_CHILDREN   (-1)
@@ -8,8 +8,8 @@
 #define RUSAGE_THREAD   1               /* only the calling thread */
 
 struct	rusage {
-	struct linux_timeval ru_utime;	/* user time used */
-	struct linux_timeval ru_stime;	/* system time used */
+	struct timeval ru_utime;	/* user time used */
+	struct timeval ru_stime;	/* system time used */
 	long	ru_maxrss;		/* max resident set size */
 #define	ru_first	ru_ixrss
 	long	ru_ixrss;		/* integral shared memory size */
