@@ -5,21 +5,39 @@
 #include <string>
 #include <cctype>
 #include <algorithm>
+#include <process.h>
 #include <memory>
+#include <tlhelp32.h>
+#include <psapi.h>
+#include <cassert>
+
+int windows_getpid(void) {
+    return _getpid();
+}
+
+FILE *popen(const char *command, const char *type) {
+    return _popen(command, type);
+}
+
+int pclose(FILE *stream) {
+    return _pclose(stream);
+}
 
 struct ProcessInfoDeleter {
     void operator()(PROCESS_INFORMATION* ppi) {
         if (ppi) {
-            if(ppi->hProcess)
-            CloseHandle(ppi->hProcess);
-            if(ppi->hThread)
-            CloseHandle(ppi->hThread);
+            if (ppi->hProcess) {
+                CloseHandle(ppi->hProcess);
+            }
+            if (ppi->hThread) {
+                CloseHandle(ppi->hThread);
+            }
             delete ppi;
         }
     }
 };
 
-bool TaskExecuteAndWait(std::string execpath, std::string *pOutput) {
+bool WindowsTaskExecute(std::string execpath, std::string *pOutput, bool bWait) {
     STARTUPINFO si;
     SECURITY_ATTRIBUTES securityAttr;
     HANDLE inputPipe = INVALID_HANDLE_VALUE, outputPipe = INVALID_HANDLE_VALUE;
@@ -65,7 +83,7 @@ bool TaskExecuteAndWait(std::string execpath, std::string *pOutput) {
         retval = false;
     }
     
-    if (retval && WaitForSingleObject(ppi->hProcess, INFINITE) == WAIT_FAILED) {
+    if (bWait && retval && WaitForSingleObject(ppi->hProcess, INFINITE) == WAIT_FAILED) {
         DWORD le = GetLastError();
         std::cout << "WaitForSingleObject Failed. Error code:" << le << std::endl;
         retval = false;
@@ -95,3 +113,52 @@ bool TaskExecuteAndWait(std::string execpath, std::string *pOutput) {
     return retval;
 }
 
+//see https://msdn.microsoft.com/en-us/library/ms686852(v=VS.85).aspx
+
+int CountProcessThreads(DWORD id) {
+    HANDLE hThreadSnap = INVALID_HANDLE_VALUE;
+    BOOL  retval = true;
+    PROCESSENTRY32 pe32 = { 0 };
+    int count = -1;
+    pe32.dwSize = sizeof(PROCESSENTRY32);
+
+    hThreadSnap = CreateToolhelp32Snapshot(TH32CS_SNAPALL, 0);
+
+    if (hThreadSnap != INVALID_HANDLE_VALUE) {
+        retval = Process32First(hThreadSnap, &pe32);
+        do {
+            if (pe32.th32ProcessID == id) {
+                count = pe32.cntThreads; break;
+            }
+        } while (Process32Next(hThreadSnap, &pe32));
+
+        CloseHandle(hThreadSnap);
+    }
+    return count;
+}
+
+void sync(void) {
+    _flushall(); // does it call FlushFileBuffers internally for all files?
+}
+
+BOOL GetCurrentProcessMemoryInfo(uint32_t& virt, uint32_t& peakvirt, uint32_t& res) {
+    virt = peakvirt = res = 0;
+    PROCESS_MEMORY_COUNTERS_EX pmc;
+    BOOL bRet = 0;
+    if (bRet = GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc))) {
+        // return in KB, need to verify the mapping 
+        // may need to convert back to non-kb.
+        virt = pmc.PrivateUsage/1024;
+        peakvirt = pmc.PeakWorkingSetSize/1024;
+        res = pmc.WorkingSetSize/1024;
+    }
+    return bRet;
+}
+
+int getloadavg(double loadavg[], int nelem) {
+    
+    return 0;
+   
+}
+
+// https://msdn.microsoft.com/en-us/library/windows/desktop/ms682499(v=vs.85).aspx

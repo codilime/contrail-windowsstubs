@@ -140,12 +140,12 @@
     <ClInclude Include="..\..\wmi.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\winutils.cc" />
-    <ClCompile Include="agentconstants.cc" />
-    <ClCompile Include="cpuinfo.cc" />
-    <ClCompile Include="taskutil.cc" />
-    <ClCompile Include="timeutils.cc" />
-    <ClCompile Include="wmi.cc" />
+    <ClCompile Include="..\..\src\winutils.cc" />
+    <ClCompile Include="..\..\src\agentconstants.cc" />
+    <ClCompile Include="..\..\src\cpuinfo.cc" />
+    <ClCompile Include="..\..\src\taskutil.cc" />
+    <ClCompile Include="..\..\src\timeutils.cc" />
+    <ClCompile Include="..\..\src\wmi.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
