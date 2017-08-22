@@ -1,8 +1,11 @@
 #pragma once
-#define IFF_RUNNING    (1<<6)
-#define IFF_PROMISC  (1 << 8)
-#define IFNAMSIZ        32
-#define IF_NAMESIZE	32
+
+#include <Netioapi.h>
+
+#define IFF_RUNNING     (1 << 6)
+#define IFF_PROMISC     (1 << 8)
+#define IFNAMSIZ        IF_NAMESIZE
+
 struct ifmap {
 	unsigned long   mem_start;
 	unsigned long   mem_end;
