@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Netioapi.h>
+#include <Iphlpapi.h>
 
 #define IFF_RUNNING     (1 << 6)
 #define IFF_PROMISC     (1 << 8)
