@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Iphlpapi.h>
+#include <ws2tcpip.h>
+#include <iphlpapi.h>
 
 #define IFF_RUNNING     (1 << 6)
 #define IFF_PROMISC     (1 << 8)
