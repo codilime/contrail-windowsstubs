@@ -1,8 +1,12 @@
 #pragma once
-#define IFF_RUNNING    (1<<6)
-#define IFF_PROMISC  (1 << 8)
-#define IFNAMSIZ        16
-#define IF_NAMESIZE	32
+
+#include <ws2tcpip.h>
+#include <iphlpapi.h>
+
+#define IFF_RUNNING     (1 << 6)
+#define IFF_PROMISC     (1 << 8)
+#define IFNAMSIZ        IF_NAMESIZE
+
 struct ifmap {
 	unsigned long   mem_start;
 	unsigned long   mem_end;
