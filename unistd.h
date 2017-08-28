@@ -1,6 +1,8 @@
 #pragma once
 
-#include<io.h>
+#include <io.h>
+
+#define STDOUT_FILENO   1
 
 typedef unsigned int useconds_t;
 

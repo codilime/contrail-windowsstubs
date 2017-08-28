@@ -59,5 +59,3 @@ struct msghdr {
 #define SIOCDIFADDR     0x8936          /* delete PA address            */
 #define SIOCSIFHWBROADCAST      0x8937  /* set hardware broadcast addr  */
 #define SIOCGIFCOUNT    0x8938          /* get number of devices */
-
-int ioctl(int __fd, unsigned long int __request, ...);

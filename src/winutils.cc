@@ -78,13 +78,6 @@ char * gettempdirectory(void) {
     return nullptr; 
 }
 
-int ioctl(int fd, unsigned long request, ...) {
-    //windows-temp    assert(0);
-    return 0;
-}
-
-
-
 //similar functionality as ffsl in linux - called in bitset.cc
 int find_first_set64(uint64_t value) {
     unsigned long index = 0;
