@@ -1,10 +1,9 @@
-
-
 #include "winutils.h"
 #include "TlHelp32.h"
 #include <cassert>
 #include <DbgHelp.h>
 #include <memory>
+#include <unistd.h>
 
 //     https://msdn.microsoft.com/en-us/library/windows/desktop/ms686701(v=vs.85).aspx
 DWORD getppid() {
@@ -53,8 +52,8 @@ unsigned int  sleep(unsigned int sec) {
     return 0;
 }
 
-int usleep(unsigned int x) {
-    Sleep((x + 999U) / 1000U); // divide by 1000 and round up
+int usleep(useconds_t usec) {
+    Sleep((usec + 999U) / 1000U); // divide by 1000 and round up
     return 0;
 }
 
@@ -66,10 +65,7 @@ int  getrusage(int, struct rusage *) {
     //windows-temp    assert(0);
     return 0; 
 }
-int  close(int) {
-    //windows-temp    assert(0);
-    return 0; 
-}
+
 int  setrlimit(int, struct rlimit const *) {
     //windows-temp    assert(0);
     return 0; 
@@ -121,42 +117,6 @@ std::string GetFormattedWindowsErrorMsg() {
         }
      }
     return errormsg;
-}
-
-//see https://msdn.microsoft.com/en-us/library/windows/desktop/ms680344(v=vs.85).aspx
-//https://msdn.microsoft.com/en-us/library/windows/desktop/ms680578(v=vs.85).aspx
-bool GetCallStack(std::string & callstack) {
-    HANDLE hProcess = GetCurrentProcess();//-1 return value is OK and valid, hence no error checking
-    const int maxframes = 128;
-    void * frames[maxframes];
-    bool bRetVal = true;
-    USHORT nFrames = 0;
-    DWORD64  dwDisplacement = 0;
-    PSYMBOL_INFO pSymbol = nullptr;
-    
-    if (SymInitialize(hProcess, NULL, TRUE)) {
-        nFrames = CaptureStackBackTrace(0, maxframes, frames, NULL);
-        if (nFrames > 0) {
-            std::unique_ptr<char[]> pbuffer(new char[sizeof(SYMBOL_INFO) + MAX_SYM_NAME * sizeof(TCHAR)]);
-            pSymbol = reinterpret_cast<SYMBOL_INFO*>(pbuffer.get()); //unique_ptr does not give up ownership
-            pSymbol->MaxNameLen = MAX_SYM_NAME;
-            pSymbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-            std::stringstream ss;
-            for (USHORT i = 0; i < nFrames; i++) {
-                if (SymFromAddr(hProcess, (DWORD64)frames[i], 0, pSymbol) == TRUE) {
-                    ss << i << "::" << pSymbol->Name << "::" << std::hex << pSymbol->Address << std::endl;
-                }
-            }
-            callstack += ss.str();
-        }
-
-    }
-    else {
-        bRetVal = false;
-        callstack = GetFormattedWindowsErrorMsg();//could not get callstack
-    }
-
-    return bRetVal;
 }
 
 //https://msdn.microsoft.com/en-us/library/windows/desktop/ms724439(v=vs.85).aspx

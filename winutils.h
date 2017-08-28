@@ -10,7 +10,7 @@ int getloadavg(double loadavg[], int nelem);;
 
 #define CLOCK_REALTIME                  0
 #define CLOCK_MONOTONIC                 1
-typedef  unsigned int   useconds_t;
+
 typedef unsigned int            uint;
 typedef unsigned long           ulong;
 typedef ptrdiff_t ssize_t;
@@ -19,7 +19,7 @@ char *ctime_r(time_t*, char[]);
 
 int clock_gettime(clockid_t clk_id, struct timespec *tv);
 int clock_getres(clockid_t clk_id, struct timespec *res);
-int usleep(useconds_t usec);
+
 unsigned int sleep(unsigned int seconds);
 char *windows_if_indextoname(unsigned int ifindex, char *ifname);
 char *gettempdirectory();
@@ -51,5 +51,4 @@ int setrlimit(int resource, const struct rlimit *rlp);
 std::string GetFormattedWindowsErrorMsg(); // TODO: JW-522 Refactor
 
 void sync(void);
-bool GetCallStack(std::string & callstack);
 std::string GetWindowsVersionString();
