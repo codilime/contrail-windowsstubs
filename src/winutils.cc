@@ -44,19 +44,6 @@ void bzero(void *to, int count) {
     }
 }
 
-
-//Linux sleep's argument is in seconds
-//Window's sleep argument is in milli seconds
-unsigned int  sleep(unsigned int sec) { 
-    ::Sleep(1000 * sec);
-    return 0;
-}
-
-int usleep(useconds_t usec) {
-    Sleep((usec + 999U) / 1000U); // divide by 1000 and round up
-    return 0;
-}
-
 int  getrlimit(int, struct rlimit *) {
    //windows-temp    assert(0);
     return 0; 
