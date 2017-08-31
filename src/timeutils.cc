@@ -152,27 +152,6 @@ struct tm *  gmtime_r(__int64 const *, struct tm *) {
     return nullptr; 
 }
 
-int TimeSpecToTimeVal(struct timespec *pts, struct timeval *ptv) {
-    int retval = -1;
-    if (pts != nullptr && ptv != nullptr) {
-        ptv->tv_sec = pts->tv_sec;
-        ptv->tv_usec = pts->tv_nsec / 1000;
-        retval = 0;
-    }
-    return retval;
-}
-
-int gettimeofday(struct timeval *ptv, struct timezone *) {
-    struct timespec ts;
-    int retval = -1;
-    if (clock_gettime_realtime(&ts) == 0) {
-        if (TimeSpecToTimeVal(&ts, ptv) == 0) {
-            retval = 0;
-        }
-    }
-    return retval;
-}
-
 clock_t times(struct tms *buf) {
     if (buf != nullptr) {
         buf->tms_utime = clock();
