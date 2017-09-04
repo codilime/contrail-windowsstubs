@@ -24,7 +24,7 @@ char *windows_if_indextoname(unsigned int ifindex, char *ifname);
 char *gettempdirectory();
 DWORD getppid();
 void WindowsCloseTaskFiles();
-int find_first_set64(uint64_t value);
+
 #define PACK( ___somestructure___ ) __pragma( pack(push, 1) ) ___somestructure___ __pragma( pack(pop) )
 #define strtok_r strtok_s
 
