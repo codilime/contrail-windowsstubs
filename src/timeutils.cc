@@ -142,14 +142,16 @@ char* strptime(const char* str,const char* format, struct tm* tm) {
     return const_cast<char*>(str + input.tellg());
 }
 
-__int64  timegm(struct tm *) {
-    //windows-temp assert(0);
-    return 0;
+time_t timegm(struct tm *_tm) {
+    return _mkgmtime(_tm);
 }
 
-struct tm *  gmtime_r(__int64 const *, struct tm *) {
-    //windows-temp assert(0);
-    return nullptr; 
+struct tm *gmtime_r(const time_t *time, struct tm *_tm) {
+    errno_t ret = gmtime_s(_tm, time);
+    if (ret == 0)
+        return _tm;
+    else
+        return NULL;
 }
 
 clock_t times(struct tms *buf) {
