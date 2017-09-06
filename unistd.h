@@ -1,6 +1,7 @@
 #pragma once
 
 #include <io.h>
+#include <process.h>
 
 #define STDOUT_FILENO   1
 

@@ -28,14 +28,6 @@ public:
     static const std::string server_privkey_pem ; // "/etc/server-privkey.pem\n"
     static const std::string contrail_dns_test_dir ; // "/etc/contrail/dns/test"
     static const std::string contrail_query_engine_conf ; // "/etc/contrail/contrail-query-engine.conf"
-    // TODO: reduce above constats by using only directory constants and appending file names in the code.
-    static const std::string temp_directory;
-    static const std::string usr_directory; //usr/
-    static const std::string var_directory; //var/
-    static const std::string bin_directory; //bin
-    static const std::string log_directory; //log/
-    static const std::string etc_directory; //usr/
-    static const std::string dev_directory; //dev/
 };
 
 #endif // __AGENT_CONSTANTS_H__
