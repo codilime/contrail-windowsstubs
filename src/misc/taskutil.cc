@@ -11,10 +11,6 @@
 #include <psapi.h>
 #include <cassert>
 
-int windows_getpid(void) {
-    return _getpid();
-}
-
 FILE *popen(const char *command, const char *type) {
     return _popen(command, type);
 }

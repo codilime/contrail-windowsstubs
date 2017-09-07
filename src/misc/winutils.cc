@@ -65,19 +65,6 @@ char * gettempdirectory(void) {
     return nullptr; 
 }
 
-//similar functionality as ffsl in linux - called in bitset.cc
-int find_first_set64(uint64_t value) {
-    unsigned long index = 0;
-    unsigned char isNonZero= _BitScanForward64(&index, value);
-    if (isNonZero)	{
-
-        return index + 1;
-        //ffsl assumes least significant bit is position is 1.
-        //_bitScanForward assumes least significant bt position is 0.
-    }
-    else return 0;
-}
-
 //modified from https://msdn.microsoft.com/en-us/library/windows/desktop/ms686701(v=vs.85).aspx
 //useful utility to print detailed error message from error code.
 

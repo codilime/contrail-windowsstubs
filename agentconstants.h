@@ -14,12 +14,6 @@ public:
     static const std::string log_dns ; // "/var/log/dns"
     static const std::string contrail_query_engine_log ; // "/var/log/contrail/contrail-query-engine.log"
     static const std::string contrail_vrouter2_log ; // "/var/log/contrail/vrouter2.log"
-    static const std::string contrail_keystone_auth_conf ; // "/etc/contrail/contrail-keystone-auth.conf"
-    static const std::string contrail_ks_cert ; // "/etc/contrail/ks-cert"
-    static const std::string contrail_ks_key ; // "/etc/contrail/ks-key"
-    static const std::string contrail_ks_ca ; // "/etc/contrail/ks-ca"
-    static const std::string contrail_collector_conf ; // "/etc/contrail/contrail-collector.conf"
-    static const std::string contrail_database_conf ; // "/etc/contrail/contrail-database.conf"
     static const std::string contrail_control_conf ; // "/etc/contrail/contrail-control.conf"
     static const std::string contrail_ssl_certs_server_pem ; // "/etc/contrail/ssl/certs/server.pem"
     static const std::string contrail_ssl_server_privkey_pem ; // "/etc/contrail/ssl/private/server-privkey.pem"
@@ -34,14 +28,6 @@ public:
     static const std::string server_privkey_pem ; // "/etc/server-privkey.pem\n"
     static const std::string contrail_dns_test_dir ; // "/etc/contrail/dns/test"
     static const std::string contrail_query_engine_conf ; // "/etc/contrail/contrail-query-engine.conf"
-    // TODO: reduce above constats by using only directory constants and appending file names in the code.
-    static const std::string temp_directory;
-    static const std::string usr_directory; //usr/
-    static const std::string var_directory; //var/
-    static const std::string bin_directory; //bin
-    static const std::string log_directory; //log/
-    static const std::string etc_directory; //usr/
-    static const std::string dev_directory; //dev/
 };
 
 #endif // __AGENT_CONSTANTS_H__
