@@ -1,5 +1,3 @@
-#define WIN32_LEAN_AND_MEAN
-
 #include <unistd.h>
 #include <windows.h>
 
