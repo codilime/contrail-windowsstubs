@@ -85,25 +85,3 @@ std::string GetFormattedWindowsErrorMsg() {
      }
     return errormsg;
 }
-
-//https://msdn.microsoft.com/en-us/library/windows/desktop/ms724439(v=vs.85).aspx
-//https://msdn.microsoft.com/en-us/library/windows/desktop/ms724832(v=vs.85).aspx
-//other option is to USE wmi
-std::string GetWindowsVersionString()
-{
-    OSVERSIONINFOEX infoex;
-
-    ZeroMemory(&infoex, sizeof(OSVERSIONINFOEX));
-    infoex.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-    GetVersionEx((OSVERSIONINFO*)&infoex);
-
-    std::stringstream strm;
-    strm << "Major:" << infoex.dwMajorVersion << std::endl;
-    strm << "Minor" << infoex.dwMinorVersion << std::endl;
-    strm << "Build:" << infoex.dwBuildNumber << std::endl;
-    strm << "Platform:" << infoex.dwPlatformId << std::endl;
-    strm << "Pack:" << "(" << infoex.wServicePackMajor << "," << infoex.wServicePackMinor << ")"<<std::endl;;
-    
-    return strm.str();
-}
