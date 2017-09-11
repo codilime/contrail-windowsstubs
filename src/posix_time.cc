@@ -6,10 +6,8 @@ char* strptime(const char* str,const char* format, struct tm* tm) {
     std::istringstream input(str);
     input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
     input >> std::get_time(tm, format);
-    if (input.fail()) 
-    {
+    if (input.fail())
         return nullptr;
-    }
     return const_cast<char*>(str + input.tellg());
 }
 
@@ -30,11 +28,9 @@ char *ctime_r(const time_t *timep, char buf[]) {
         return nullptr;
     char buffer[101];
     errno_t e = ctime_s(buffer, 100, timep);
-    if (e == 0)
-    {
+    if (e == 0) {
         strncpy(buf, buffer,100);
         return buf;
-    }
-    else
+    } else
         return nullptr;
 }
