@@ -109,30 +109,6 @@ bool WindowsTaskExecute(std::string execpath, std::string *pOutput, bool bWait) 
     return retval;
 }
 
-//see https://msdn.microsoft.com/en-us/library/ms686852(v=VS.85).aspx
-
-int CountProcessThreads(DWORD id) {
-    HANDLE hThreadSnap = INVALID_HANDLE_VALUE;
-    BOOL  retval = true;
-    PROCESSENTRY32 pe32 = { 0 };
-    int count = -1;
-    pe32.dwSize = sizeof(PROCESSENTRY32);
-
-    hThreadSnap = CreateToolhelp32Snapshot(TH32CS_SNAPALL, 0);
-
-    if (hThreadSnap != INVALID_HANDLE_VALUE) {
-        retval = Process32First(hThreadSnap, &pe32);
-        do {
-            if (pe32.th32ProcessID == id) {
-                count = pe32.cntThreads; break;
-            }
-        } while (Process32Next(hThreadSnap, &pe32));
-
-        CloseHandle(hThreadSnap);
-    }
-    return count;
-}
-
 void sync(void) {
     _flushall(); // does it call FlushFileBuffers internally for all files?
 }

@@ -1,5 +1,5 @@
 #pragma once
-#define WIN32_LEAN_AND_MEAN
+
 #include<windows.h>
 #include <stdlib.h>
 
@@ -15,7 +15,6 @@ typedef unsigned int            uint;
 typedef unsigned long           ulong;
 typedef ptrdiff_t ssize_t;
 typedef int clockid_t;
-char *ctime_r(time_t*, char[]);
 
 int clock_gettime(clockid_t clk_id, struct timespec *tv);
 int clock_getres(clockid_t clk_id, struct timespec *res);
@@ -50,4 +49,3 @@ int setrlimit(int resource, const struct rlimit *rlp);
 std::string GetFormattedWindowsErrorMsg(); // TODO: JW-522 Refactor
 
 void sync(void);
-std::string GetWindowsVersionString();
