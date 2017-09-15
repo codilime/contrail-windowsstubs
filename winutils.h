@@ -6,22 +6,10 @@
 #include <string> // TODO: JW-522 Refactor
 #include <sstream>
 
-int getloadavg(double loadavg[], int nelem);;
-
-#define CLOCK_REALTIME                  0
-#define CLOCK_MONOTONIC                 1
-
-typedef unsigned int            uint;
-typedef unsigned long           ulong;
 typedef ptrdiff_t ssize_t;
-typedef int clockid_t;
-
-int clock_gettime(clockid_t clk_id, struct timespec *tv);
-int clock_getres(clockid_t clk_id, struct timespec *res);
 
 char *windows_if_indextoname(unsigned int ifindex, char *ifname);
 char *gettempdirectory();
-DWORD getppid();
 void WindowsCloseTaskFiles();
 
 #define PACK( ___somestructure___ ) __pragma( pack(push, 1) ) ___somestructure___ __pragma( pack(pop) )
