@@ -46,6 +46,8 @@ typedef struct	ether_header {
 	u_short	ether_type;
 } ETHERHDR;
 
+#define ETH_HLEN            (14)
+
 #define	ETHERTYPE_PUP		0x0200	/* PUP protocol */
 #define	ETHERTYPE_IP		0x0800	/* IP protocol */
 #define ETHERTYPE_ARP		0x0806	/* Addr. resolution protocol */
