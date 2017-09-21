@@ -5,37 +5,6 @@
 #include <memory>
 #include <unistd.h>
 
-//     https://msdn.microsoft.com/en-us/library/windows/desktop/ms686701(v=vs.85).aspx
-DWORD getppid() {
-    HANDLE hSnapshot = INVALID_HANDLE_VALUE;
-    PROCESSENTRY32 pe32;
-    DWORD ppid = 0, pid = GetCurrentProcessId();
-
-    hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    __try {
-        if (hSnapshot == INVALID_HANDLE_VALUE) __leave;
-
-        ZeroMemory(&pe32, sizeof(pe32));
-        pe32.dwSize = sizeof(pe32);
-        if (!Process32First(hSnapshot, &pe32)) __leave;
-
-        do {
-            if (pe32.th32ProcessID == pid) {
-                ppid = pe32.th32ParentProcessID;
-                break;
-            }
-        } while (Process32Next(hSnapshot, &pe32));
-
-    }
-
-    __finally {
-        if (hSnapshot != INVALID_HANDLE_VALUE) CloseHandle(hSnapshot);
-    }
-    return ppid;
-}
-
-
-
 void bzero(void *to, int count) {
     unsigned char *chto = static_cast<unsigned char*>(to);
     while (count-- > 0)
