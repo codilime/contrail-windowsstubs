@@ -1,5 +1,6 @@
 #include <sys/time.h>
 #include <cstdint>
+#include <winsock2.h>
 
 int gettimeofday(struct timeval *tp, struct timezone *tzp)
 {

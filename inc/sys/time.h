@@ -1,6 +1,5 @@
 #pragma once
 
-#include <winsock2.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -2,7 +2,6 @@
 #define __POSIX_TIME_H__
 
 #include <time.h>
-#include <winsock2.h>
 
 #define CLOCK_REALTIME                  0
 #define CLOCK_MONOTONIC                 1
