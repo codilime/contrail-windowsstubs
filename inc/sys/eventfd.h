@@ -1,7 +1,5 @@
 #pragma once
 
-#define FD_CLOEXEC      1
-
 #define EFD_SEMAPHORE   1
 #define EFD_NONBLOCK    2
 #define EFD_CLOEXEC     4
