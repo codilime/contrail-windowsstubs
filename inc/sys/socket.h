@@ -1,6 +1,7 @@
 #pragma once
 #include <sys/wintypes.h>
 typedef int socklen_t;
+typedef unsigned int sa_family_t;
 #define MSG_DONTWAIT    0x40 
 #define AF_LOCAL        1       /* POSIX name for AF_UNIX       */
 #define AF_INET         2       /* Internet IP Protocol         */
@@ -59,3 +60,7 @@ struct msghdr {
 #define SIOCDIFADDR     0x8936          /* delete PA address            */
 #define SIOCSIFHWBROADCAST      0x8937  /* set hardware broadcast addr  */
 #define SIOCGIFCOUNT    0x8938          /* get number of devices */
+
+#define SHUT_RD 0x00
+#define SHUT_WR 0x01
+#define SHUT_RDWR 0x02
