@@ -33,6 +33,7 @@
 *
 *	@(#)ip.h	7.10 (Berkeley) 6/28/90
 */
+#include <Winsock2.h>
 #include "netinet/in.h"
 /*
 * Definitions for internet protocol version 4.

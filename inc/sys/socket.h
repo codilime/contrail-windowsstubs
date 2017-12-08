@@ -1,5 +1,8 @@
 #pragma once
+
 #include <sys/wintypes.h>
+#include <winsock2.h>
+
 typedef int socklen_t;
 #define MSG_DONTWAIT    0x40 
 #define AF_LOCAL        1       /* POSIX name for AF_UNIX       */

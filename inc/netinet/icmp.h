@@ -39,10 +39,11 @@
 * Per RFC 792, September 1981.
 */
 
+#include <netinet/ip.h>
+
 /*
 * Structure of an icmp header.
 */
-#include "sys/wintypes.h"
 struct icmp {
 	u_char	icmp_type;		/* type of message, see below */
 	u_char	icmp_code;		/* type sub code */
