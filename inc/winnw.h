@@ -1,6 +1,7 @@
 #pragma once
-#
-#define ETHER_ADDR_LEN 6
+
+#include <net/ethernet.h>
+
 #define	ETHERTYPE_IP 0x0800
 /* IP protocol */
 /*
@@ -10,9 +11,6 @@
 5  * Authors: Marcell GAL, 2000, XDSL Ltd, Hungary
 6  *          Eric Kinzie, 2006-2007, US Naval Research Laboratory
 7  */
-
-#define ETHERTYPE_IPV4  0x0800
-#define ETHERTYPE_IPV6  0x86dd
 
 struct if_nameindex;
 unsigned int  windows_if_nametoindex(char const * name);

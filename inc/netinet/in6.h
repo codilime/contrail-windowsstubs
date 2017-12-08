@@ -23,6 +23,8 @@
 /*
 *	IPv6 address structure
 */
+
+#include <winsock2.h>
 #include <sys/wintypes.h>
 
 //#if __UAPI_DEF_IN6_ADDR
