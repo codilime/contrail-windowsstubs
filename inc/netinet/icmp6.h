@@ -86,54 +86,6 @@ struct icmp6_hdr {
 #define icmp6_seq	icmp6_data16[1]		/* echo request/reply */
 #define icmp6_maxdelay	icmp6_data16[0]		/* mcast group membership */
 
-#define ICMP6_DST_UNREACH		1	/* dest unreachable, codes: */
-#define ICMP6_PACKET_TOO_BIG		2	/* packet too big */
-#define ICMP6_TIME_EXCEEDED		3	/* time exceeded, code: */
-#define ICMP6_PARAM_PROB		4	/* ip6 header bad */
-
-#define ICMP6_ECHO_REQUEST		128	/* echo service */
-#define ICMP6_ECHO_REPLY		129	/* echo reply */
-#define MLD_LISTENER_QUERY		130 	/* multicast listener query */
-#define MLD_LISTENER_REPORT		131	/* multicast listener report */
-#define MLD_LISTENER_DONE		132	/* multicast listener done */
-#define MLD_LISTENER_REDUCTION MLD_LISTENER_DONE /* RFC3542 definition */
-
-/* RFC2292 decls */
-#define ICMP6_MEMBERSHIP_QUERY		130	/* group membership query */
-#define ICMP6_MEMBERSHIP_REPORT		131	/* group membership report */
-#define ICMP6_MEMBERSHIP_REDUCTION	132	/* group membership termination */
-
-/* the followings are for backward compatibility to old KAME apps. */
-#define MLD6_LISTENER_QUERY	MLD_LISTENER_QUERY
-#define MLD6_LISTENER_REPORT	MLD_LISTENER_REPORT
-#define MLD6_LISTENER_DONE	MLD_LISTENER_DONE
-
-#define ND_ROUTER_SOLICIT		133	/* router solicitation */
-#define ND_ROUTER_ADVERT		134	/* router advertisement */
-#define ND_NEIGHBOR_SOLICIT		135	/* neighbor solicitation */
-#define ND_NEIGHBOR_ADVERT		136	/* neighbor advertisement */
-#define ND_REDIRECT			137	/* redirect */
-
-#define ICMP6_ROUTER_RENUMBERING	138	/* router renumbering */
-
-#define ICMP6_WRUREQUEST		139	/* who are you request */
-#define ICMP6_WRUREPLY			140	/* who are you reply */
-#define ICMP6_FQDN_QUERY		139	/* FQDN query */
-#define ICMP6_FQDN_REPLY		140	/* FQDN reply */
-#define ICMP6_NI_QUERY			139	/* node information request */
-#define ICMP6_NI_REPLY			140	/* node information reply */
-#define MLDV2_LISTENER_REPORT		143	/* RFC3810 listener report */
-
-/* The definitions below are experimental. TBA */
-#define MLD_MTRACE_RESP			200	/* mtrace response(to sender) */
-#define MLD_MTRACE			201	/* mtrace messages */
-
-/* the followings are for backward compatibility to old KAME apps. */
-#define MLD6_MTRACE_RESP	MLD_MTRACE_RESP
-#define MLD6_MTRACE		MLD_MTRACE
-
-#define ICMP6_MAXTYPE			201
-
 #define ICMP6_DST_UNREACH_NOROUTE	0	/* no route to destination */
 #define ICMP6_DST_UNREACH_ADMIN	 	1	/* administratively prohibited */
 #define ICMP6_DST_UNREACH_NOTNEIGHBOR	2	/* not a neighbor(obsolete) */
