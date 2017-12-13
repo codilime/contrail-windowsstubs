@@ -43,11 +43,5 @@ int getppid() {
 }
 
 long sysconf(int name) {
-    switch (name) {
-    case _SC_OPEN_MAX:
-        return 0;
-
-    default:
-        return -1;
-    }
+    return -1;
 }
