@@ -1,4 +1,4 @@
-#include <fcntl.h>
+#include <posix_fcntl.h>
 #include <windows.h>
 
 int fcntl(int fildes, int cmd, ...) {
