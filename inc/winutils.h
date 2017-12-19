@@ -17,18 +17,6 @@ char *gettempdirectory();
 
 
 void bzero(void *to, int count);
-typedef unsigned long   __kernel_ulong_t;
-struct rlimit {
-	         __kernel_ulong_t        rlim_cur;
-	         __kernel_ulong_t        rlim_max;
-};
-#ifndef RLIMIT_NOFILE
-# define RLIMIT_NOFILE          7       /* max number of open files */
-#endif
-
-int getrlimit(int resource, struct rlimit *rlp);
-
-int setrlimit(int resource, const struct rlimit *rlp);
 
 #define strncasecmp  _strnicmp
 #define strcasecmp  _stricmp
