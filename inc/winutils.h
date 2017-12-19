@@ -33,6 +33,4 @@ int setrlimit(int resource, const struct rlimit *rlp);
 #define strncasecmp  _strnicmp
 #define strcasecmp  _stricmp
 
-std::string GetFormattedWindowsErrorMsg(); // TODO: JW-522 Refactor
-
 void sync(void);
