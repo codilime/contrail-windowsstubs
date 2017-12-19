@@ -13,20 +13,6 @@ void bzero(void *to, int count) {
     }
 }
 
-int  getrlimit(int, struct rlimit *) {
-   //windows-temp    assert(0);
-    return 0; 
-}
-int  getrusage(int, struct rusage *) {
-    //windows-temp    assert(0);
-    return 0; 
-}
-
-int  setrlimit(int, struct rlimit const *) {
-    //windows-temp    assert(0);
-    return 0; 
-}
-
 char * gettempdirectory(void) { 
       //windows-temp    assert(0);
     return nullptr; 

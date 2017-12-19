@@ -1,11 +1,19 @@
-
 #pragma once
+
+#include <stdint.h>
 #include <posix_time.h>
+
+#define RLIMIT_NOFILE 7
 
 #define RUSAGE_SELF     0
 #define RUSAGE_CHILDREN   (-1)
 #define RUSAGE_BOTH  (-2)            /* sys_wait4() uses this */
 #define RUSAGE_THREAD   1               /* only the calling thread */
+
+struct rlimit {
+	uint32_t rlim_cur;
+	uint32_t rlim_max;
+};
 
 struct	rusage {
 	struct timeval ru_utime;	/* user time used */
@@ -29,13 +37,5 @@ struct	rusage {
 };
 
 int	getrusage(int, struct rusage *);
-
-
-
-
-
-
-
-
-
-
+int getrlimit(int resource, struct rlimit *rlp);
+int setrlimit(int resource, const struct rlimit *rlp);
