@@ -18,10 +18,10 @@ static inline int xdigit(char c) {
 unsigned int  windows_if_nametoindex(char const* name) {
     return ::if_nametoindex(name);
 }
-void windows_if_freenameindex(struct if_nameindex* nameindex) {
+void if_freenameindex(struct if_nameindex* nameindex) {
     ::free(nameindex);
 }
-struct if_nameindex* windows_if_nameindex(void) {
+struct if_nameindex* if_nameindex(void) {
     // windows-temp assert(0);
     return 0;
 }

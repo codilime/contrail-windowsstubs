@@ -41,3 +41,7 @@ int getppid() {
     }
     return ppid;
 }
+
+long sysconf(int name) {
+    return -1;
+}

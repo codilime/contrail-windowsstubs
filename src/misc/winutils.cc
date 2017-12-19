@@ -26,9 +26,7 @@ int  setrlimit(int, struct rlimit const *) {
     //windows-temp    assert(0);
     return 0; 
 }
-void  WindowsCloseTaskFiles(void) {
-    //windows-temp    assert(0);
-}
+
 char * gettempdirectory(void) { 
       //windows-temp    assert(0);
     return nullptr; 
