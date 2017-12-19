@@ -42,10 +42,10 @@ int getppid() {
     return ppid;
 }
 
-<<<<<<< HEAD
 long sysconf(int name) {
-=======
+    return -1;
+}
+
 pid_t vfork(void) {
->>>>>>> JW-1353 : Adding missing stub methods for oper cleanup.
     return -1;
 }
