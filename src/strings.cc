@@ -1,3 +1,4 @@
+#include <strings.h>
 #include <windows.h>
 
 int ffs(int i) {
