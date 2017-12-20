@@ -18,7 +18,5 @@ char *gettempdirectory();
 
 void bzero(void *to, int count);
 
-#define strncasecmp  _strnicmp
-#define strcasecmp  _stricmp
 
 void sync(void);
