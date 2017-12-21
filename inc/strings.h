@@ -7,7 +7,9 @@ extern "C" {
 #endif
 
 int ffs(int i);
-int strncasecmp(const char *s1, const char *s2, size_t n);
+
+#define strncasecmp _strnicmp
+#define strcasecmp _stricmp
 
 #ifdef __cplusplus
 }

@@ -9,7 +9,3 @@ int ffs(int i) {
     else
         return 0;
 }
-
-int strncasecmp(const char *s1, const char *s2, size_t n) {
-    return _strnicmp(s1, s2, n);
-}

@@ -19,6 +19,7 @@ unsigned int sleep(unsigned int seconds);
 int usleep(useconds_t usec);
 int getppid();
 long sysconf(int name);
+pid_t vfork(void);
 
 #ifdef __cplusplus
 }

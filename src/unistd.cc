@@ -45,3 +45,7 @@ int getppid() {
 long sysconf(int name) {
     return -1;
 }
+
+pid_t vfork(void) {
+    return -1;
+}
