@@ -1,9 +1,13 @@
 #include <posix_time.h>
+
 #include <sstream>
 #include <iomanip>
+#include <boost/algorithm/string/replace.hpp>
 
-char* strptime(const char* str,const char* format, struct tm* tm) {
-    std::istringstream input(str);
+char* strptime(const char* str, const char* format, struct tm* tm) {
+    std::string replaced(str);
+    boost::algorithm::replace_all(replaced, "%F", "%Y-%m-%d");
+    std::istringstream input(replaced);
     input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
     input >> std::get_time(tm, format);
     if (input.fail())

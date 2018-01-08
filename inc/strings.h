@@ -8,8 +8,8 @@ extern "C" {
 
 int ffs(int i);
 
-#define strncasecmp _strnicmp
-#define strcasecmp _stricmp
+int strcasecmp(const char *s1, const char *s2);
+int strncasecmp(const char *s1, const char *s2, size_t n);
 
 #ifdef __cplusplus
 }
