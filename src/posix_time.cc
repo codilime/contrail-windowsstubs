@@ -6,7 +6,7 @@
 
 char* strptime(const char* str, const char* format, struct tm* tm) {
     std::string replaced(format);
-    // strptime supports %F and std::get_time doesn't not, so we replace it
+    // strptime supports %F and std::get_time does not, so we replace it
     boost::algorithm::replace_all(replaced, "%F", "%Y-%m-%d");
     std::istringstream input(str);
     input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
