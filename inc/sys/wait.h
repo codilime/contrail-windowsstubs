@@ -1,5 +1,4 @@
-#ifndef __WAIT_H__
-#define __WAIT_H__
+#pragma once
 
 #include <unistd.h>
 
@@ -12,5 +11,3 @@ pid_t waitpid(pid_t pid, int *status, int options);
 #ifdef __cplusplus
 }
 #endif
-
-#endif // __WAIT_H__
