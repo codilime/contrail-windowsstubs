@@ -10,7 +10,7 @@ char* strptime(const char* str, const char* format, struct tm* tm) {
     boost::algorithm::replace_all(replaced, "%F", "%Y-%m-%d");
     std::istringstream input(str);
     input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
-    input >> std::get_time(tm, replaced);
+    input >> std::get_time(tm, replaced.c_str());
     if (input.fail())
         return nullptr;
     return const_cast<char*>(str + input.tellg());
