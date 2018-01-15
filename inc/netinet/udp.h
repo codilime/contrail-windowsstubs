@@ -16,29 +16,24 @@
   15  *              2 of the License, or (at your option) any later version.
   16  */
 
-#include <sys/wintypes.h>
-//#ifdef __FAVOR_BSD
+#include <stdint.h>
 
 struct udphdr {
-	u_int16_t uh_sport;  /* source port */
-	u_int16_t uh_dport;  /* destination port */
-	u_int16_t uh_ulen;   /* udp length */
-	union {
-		u_int16_t uh_sum;    /* udp checksum */
-		u_int16_t check;
-	};
+    union {
+        struct {
+            uint16_t uh_sport;  /* source port */
+            uint16_t uh_dport;  /* destination port */
+            uint16_t uh_ulen;   /* udp length */
+            uint16_t uh_sum;    /* udp checksum */
+        };
+        struct {
+            uint16_t source;
+            uint16_t dest;
+            uint16_t len;
+            uint16_t check;
+        };
+    };
 };
-
-//#else
-
-//struct udphdr {
-//	u_int16_t source;
-//	u_int16_t dest;
-//	u_int16_t len;
-//	u_int16_t check;
-//};
-
-//#endif
 
  /* UDP socket options */
  #define UDP_CORK        1       /* Never send partially complete segments */
@@ -52,4 +47,3 @@ struct udphdr {
  #define UDP_ENCAP_L2TPINUDP     3 /* rfc2661 */
  #define UDP_ENCAP_GTP0          4 /* GSM TS 09.60 */
  #define UDP_ENCAP_GTP1U         5 /* 3GPP TS 29.060 */
-
