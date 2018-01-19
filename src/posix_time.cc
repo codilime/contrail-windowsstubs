@@ -1,6 +1,7 @@
 #include <posix_time.h>
 #include <sstream>
 #include <iomanip>
+#include <winsock2.h>
 
 char* strptime(const char* str,const char* format, struct tm* tm) {
     std::istringstream input(str);

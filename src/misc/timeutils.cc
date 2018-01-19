@@ -1,5 +1,4 @@
 #include "winutils.h"
-#include <winsock2.h> //for timeval
 #include <ctime>
 #include <iomanip>
 #include <sstream>
